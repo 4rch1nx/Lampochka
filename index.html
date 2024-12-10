@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Romantic Website</title>
+    <title>My Romantic New Year Website</title>
     <style>
         body {
             background-color: #ffe6f0;
@@ -11,6 +11,8 @@
             text-align: center;
             color: #c20000;
             animation: fadeIn 2s;
+            position: relative;
+            overflow: hidden;
         }
         h1 {
             font-size: 2.5em;
@@ -45,6 +47,14 @@
             background-color: #c20000;
             transform: scale(1.05);
         }
+        .confetti {
+            width: 10px;
+            height: 10px;
+            background-color: #ffcc00;
+            position: absolute;
+            z-index: 1;
+            opacity: 0.8;
+        }
 
         /* Animations */
         @keyframes fadeIn {
@@ -66,17 +76,21 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
         }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Romantic Oasis</h1>
-    <p>Where love blossomed amongst the stars and whispers of the heart.</p>
+    <h1>Welcome to My Romantic New Year Oasis!</h1>
+    <p>Where love blossoms amidst fireworks and wishes for a splendid year to come.</p>
     <div class="heart">❤️</div>
     <p>Feel the gentle breeze and let your heart dance to the melody of love.</p>
     
     <button onclick="showRandomMessage()">Show Random Message</button>
     <p id="randomMessage" style="font-weight: bold; font-size: 1.3em; margin-top: 20px;"></p>
-
+    
     <script>
         function showRandomMessage() {
             const messages = [
@@ -87,6 +101,28 @@
             const randomIndex = Math.floor(Math.random() * messages.length);
             document.getElementById("randomMessage").innerText = messages[randomIndex];
         }
+
+        // Confetti effect
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16); // Random colors
+
+            document.body.appendChild(confetti);
+
+            confetti.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100vh)' }], {
+                duration: Math.random() * 2000 + 1000,
+                easing: 'linear',
+                iterations: 1
+            });
+
+            confetti.addEventListener('finish', () => {
+                confetti.remove();
+            });
+        }
+
+        setInterval(createConfetti, 100);
     </script>
 </body>
 </html>
