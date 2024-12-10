@@ -13,29 +13,30 @@
             animation: fadeIn 2s;
             position: relative;
             overflow: hidden;
+            padding: 20px; /* Padding for small screens */
         }
         h1 {
-            font-size: 2.5em;
-            margin-top: 50px;
-            text-shadow: 2px 2px 4px #fff;
+            font-size: 2em; /* Responsive font size for mobile */
+            margin-top: 20px; /* Reduced top margin */
+            text-shadow: 1px 1px 2px #fff;
             animation: slideIn 1s forwards;
             opacity: 0;
         }
         p {
-            font-size: 1.5em;
-            margin: 20px;
+            font-size: 1.2em; /* Responsive font size for mobile */
+            margin: 10px;
             animation: fadeInUp 1s forwards;
             opacity: 0;
         }
         .heart {
-            font-size: 50px;
+            font-size: 40px; /* Responsive heart size */
             color: #ff3366;
             animation: pulse 1.5s infinite;
         }
         button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            margin-top: 20px;
+            padding: 8px 15px; /* Responsive button size */
+            font-size: 1em; /* Responsive font size */
+            margin-top: 15px;
             background-color: #ff3366;
             color: white;
             border: none;
@@ -47,19 +48,13 @@
             background-color: #c20000;
             transform: scale(1.05);
         }
-        .confetti {
-            width: 10px;
-            height: 10px;
+        .confetti, .snowflake {
             position: absolute;
             z-index: 1;
             opacity: 0.8;
         }
         .snowflake {
-            color: #ffffff;
-            font-size: 24px;
-            position: absolute;
-            z-index: 1;
-            pointer-events: none;
+            font-size: 18px; /* Simple snowflake size */
         }
 
         /* Animations */
@@ -81,10 +76,6 @@
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
-        }
-
-        @keyframes fall {
-            to { transform: translateY(100vh); }
         }
     </style>
 </head>
@@ -128,13 +119,12 @@
             });
         }
 
-        // Snowflake effect
+        // Simple snowflake effect
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.className = 'snowflake';
             snowflake.innerHTML = '❄️'; // Snowflake character
             snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.fontSize = Math.random() * 20 + 15 + 'px'; // Random size
             snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; // Random fall speed
 
             document.body.appendChild(snowflake);
@@ -152,7 +142,7 @@
 
         // Create confetti and snowflakes at intervals
         setInterval(createConfetti, 100);
-        setInterval(createSnowflake, 200);
+        setInterval(createSnowflake, 300); // Fewer snowflakes for simplicity
     </script>
 </body>
 </html>
