@@ -13,30 +13,29 @@
             animation: fadeIn 2s;
             position: relative;
             overflow: hidden;
-            padding: 20px; /* Padding for small screens */
         }
         h1 {
-            font-size: 2em; /* Responsive font size for mobile */
-            margin-top: 20px; /* Reduced top margin */
-            text-shadow: 1px 1px 2px #fff;
+            font-size: 2.5em;
+            margin-top: 50px;
+            text-shadow: 2px 2px 4px #fff;
             animation: slideIn 1s forwards;
             opacity: 0;
         }
         p {
-            font-size: 1.2em; /* Responsive font size for mobile */
-            margin: 10px;
+            font-size: 1.5em;
+            margin: 20px;
             animation: fadeInUp 1s forwards;
             opacity: 0;
         }
         .heart {
-            font-size: 40px; /* Responsive heart size */
+            font-size: 50px;
             color: #ff3366;
             animation: pulse 1.5s infinite;
         }
         button {
-            padding: 8px 15px; /* Responsive button size */
-            font-size: 1em; /* Responsive font size */
-            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 20px;
             background-color: #ff3366;
             color: white;
             border: none;
@@ -48,13 +47,19 @@
             background-color: #c20000;
             transform: scale(1.05);
         }
-        .confetti, .snowflake {
+        .confetti {
+            width: 10px;
+            height: 10px;
             position: absolute;
             z-index: 1;
             opacity: 0.8;
         }
         .snowflake {
-            font-size: 24px; /* Christmas snowflake size */
+            color: #ffffff;
+            font-size: 24px;
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
         }
 
         /* Animations */
@@ -77,36 +82,27 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
         }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to My Romantic Holiday Oasis!</h1>
-    <div id="heartText" class="heart">❤️</div>
+    <p>Where love and joy sparkle like Christmas lights.</p>
+    <div class="heart">❤️</div>
     <p>Feel the warmth of the season and let your heart dance to the melody of love.</p>
     
     <button onclick="showRandomMessage()">Show Random Message</button>
     <p id="randomMessage" style="font-weight: bold; font-size: 1.3em; margin-top: 20px;"></p>
     
     <script>
-        const phrases = [
-            "Love is in the air! ❄️",
-            "Let it snow, let it snow! ☃️",
-            "Warm hugs and hot cocoa!",
-            "Joy to the world! ❤️",
-            "You make my heart glow! ✨"
-        ];
-
-        function updateHeartText() {
-            const randomIndex = Math.floor(Math.random() * phrases.length);
-            document.getElementById("heartText").innerText = phrases[randomIndex];
-        }
-
         function showRandomMessage() {
             const messages = [
                 "128Ve980",
                 "I love XD",
                 "128Ve XD"
-
             ];
             const randomIndex = Math.floor(Math.random() * messages.length);
             document.getElementById("randomMessage").innerText = messages[randomIndex];
@@ -116,8 +112,9 @@
         function createConfetti() {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
+
             confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // Random colors
+            confetti.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16); // Random colors
 
             document.body.appendChild(confetti);
             confetti.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100vh)' }], {
@@ -137,6 +134,7 @@
             snowflake.className = 'snowflake';
             snowflake.innerHTML = '❄️'; // Snowflake character
             snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.fontSize = Math.random() * 20 + 15 + 'px'; // Random size
             snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; // Random fall speed
 
             document.body.appendChild(snowflake);
@@ -154,11 +152,7 @@
 
         // Create confetti and snowflakes at intervals
         setInterval(createConfetti, 100);
-        setInterval(createSnowflake, 300); // Fewer snowflakes for simplicity
-
-        // Initial heart text update
-        updateHeartText();
-        setInterval(updateHeartText, 3000); // Change heart text every 3 seconds
+        setInterval(createSnowflake, 200);
     </script>
 </body>
 </html>
