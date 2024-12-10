@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Romantic New Year Website</title>
+    <title>My Romantic Holiday Oasis</title>
     <style>
         body {
-            background-color: #ffe6f0;
+            background-color: #f0f8ff; /* Light blue for a wintery feel */
             font-family: 'Arial', sans-serif;
             text-align: center;
-            color: #c20000;
+            color: #b22222; /* Firebrick color for festive text */
             animation: fadeIn 2s;
             position: relative;
             overflow: hidden;
@@ -50,10 +50,16 @@
         .confetti {
             width: 10px;
             height: 10px;
-            background-color: #ffcc00;
             position: absolute;
             z-index: 1;
             opacity: 0.8;
+        }
+        .snowflake {
+            color: #ffffff;
+            font-size: 24px;
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
         }
 
         /* Animations */
@@ -83,10 +89,10 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to My Romantic New Year Oasis!</h1>
-    <p>Where love blossoms amidst fireworks and wishes for a splendid year to come.</p>
+    <h1>Welcome to My Romantic Holiday Oasis!</h1>
+    <p>Where love and joy sparkle like Christmas lights.</p>
     <div class="heart">❤️</div>
-    <p>Feel the gentle breeze and let your heart dance to the melody of love.</p>
+    <p>Feel the warmth of the season and let your heart dance to the melody of love.</p>
     
     <button onclick="showRandomMessage()">Show Random Message</button>
     <p id="randomMessage" style="font-weight: bold; font-size: 1.3em; margin-top: 20px;"></p>
@@ -106,11 +112,11 @@
         function createConfetti() {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
+
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16); // Random colors
 
             document.body.appendChild(confetti);
-
             confetti.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100vh)' }], {
                 duration: Math.random() * 2000 + 1000,
                 easing: 'linear',
@@ -122,7 +128,31 @@
             });
         }
 
+        // Snowflake effect
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄️'; // Snowflake character
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.fontSize = Math.random() * 20 + 15 + 'px'; // Random size
+            snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; // Random fall speed
+
+            document.body.appendChild(snowflake);
+
+            snowflake.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100vh)' }], {
+                duration: parseFloat(snowflake.style.animationDuration) * 1000,
+                easing: 'linear',
+                iterations: 1
+            });
+
+            snowflake.addEventListener('finish', () => {
+                snowflake.remove();
+            });
+        }
+
+        // Create confetti and snowflakes at intervals
         setInterval(createConfetti, 100);
+        setInterval(createSnowflake, 200);
     </script>
 </body>
 </html>
