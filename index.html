@@ -30,6 +30,21 @@
             color: #ff3366;
             animation: pulse 1.5s infinite;
         }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #c20000;
+            transform: scale(1.05);
+        }
 
         /* Animations */
         @keyframes fadeIn {
@@ -58,5 +73,20 @@
     <p>Where love blossomed amongst the stars and whispers of the heart.</p>
     <div class="heart">❤️</div>
     <p>Feel the gentle breeze and let your heart dance to the melody of love.</p>
+    
+    <button onclick="showRandomMessage()">Show Random Message</button>
+    <p id="randomMessage" style="font-weight: bold; font-size: 1.3em; margin-top: 20px;"></p>
+
+    <script>
+        function showRandomMessage() {
+            const messages = [
+                "128Ve980",
+                "I love XD",
+                "128Ve XD"
+            ];
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            document.getElementById("randomMessage").innerText = messages[randomIndex];
+        }
+    </script>
 </body>
 </html>
