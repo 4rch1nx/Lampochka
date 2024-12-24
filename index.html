@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy New Year!</title>
     <style>
+        /* Reset body and html to prevent confetti from spawning below the viewport */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
         body {
             background-color: #f0f8ff; /* Light blue for a wintery feel */
             font-family: 'Arial', sans-serif;
@@ -12,7 +19,6 @@
             color: #b22222; /* Firebrick color for festive text */
             animation: fadeIn 2s;
             position: relative;
-            overflow: hidden;
         }
         h1 {
             font-size: 2.5em;
@@ -106,24 +112,24 @@
         function createConfetti() {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
-        
+
             confetti.style.left = Math.random() * 100 + 'vw'; // Random x position
-            confetti.style.top = '0'; // Start at y = 0 (top of the screen)
+            confetti.style.top = '0'; // Ensure confetti starts at the top
             confetti.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // Random colors
-        
+
             document.body.appendChild(confetti);
             confetti.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100vh)' }], {
                 duration: Math.random() * 2000 + 1000,
                 easing: 'linear',
                 iterations: 1
             });
-        
+
             confetti.addEventListener('finish', () => {
                 confetti.remove();
             });
         }
-        
-        setInterval(createConfetti, 75);
+
+        setInterval(createConfetti, 50);
     </script>
 </body>
 </html>
