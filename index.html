@@ -158,9 +158,9 @@
                 iterations: 1
             });
 
-            confetti.addEventListener('finish', () => {
+            setTimeout(() => {
                 confetti.remove();
-            });
+            }, 3000);
         }
 
         setInterval(createConfetti, 100);
