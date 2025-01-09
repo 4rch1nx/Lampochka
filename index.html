@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tweaking things</title>
+    <title>Send a Message</title>
     <style>
         body, html {
             margin: 0;
@@ -13,36 +13,37 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            background-color: #d4ebff;
-            font-family: 'Arial', sans-serif;
-            color: #b22222;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
         }
         h1 {
-            font-size: 3em;
-            text-shadow: 2px 2px 4px #fff;
+            color: #333;
+            font-size: 2.5em;
             margin-bottom: 20px;
         }
         input[type="text"] {
             padding: 10px;
             font-size: 1.2em;
-            border: 2px solid #b22222;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #888;
             border-radius: 5px;
             outline: none;
             margin-bottom: 20px;
         }
         input[type="text"]:focus {
-            border-color: #ff6347;
+            border-color: #333;
         }
         .message {
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin-top: 20px;
-            color: #333;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <h1>До 14.02 сайт закрыт на технические работы. <3</h1>
-    <input type="text" id="messageInput" placeholder="Введите ваше сообщение здесь..." onkeydown="checkEnter(event)" />
+    <h1>Send a Message</h1>
+    <input type="text" id="messageInput" placeholder="Type your message here..." onkeydown="checkEnter(event)" />
     <div class="message" id="displayMessage"></div>
 
     <script>
@@ -50,7 +51,27 @@
             if (event.key === 'Enter') {
                 const input = document.getElementById('messageInput').value;
                 const display = document.getElementById('displayMessage');
-                display.textContent = input;
+
+                // Replace 'https://your-backend-url.com' with your backend's URL
+                fetch('https://lampochka.onrender.com/send_message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: input })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'Email sent') {
+                        display.textContent = 'Email sent successfully!';
+                    } else {
+                        display.textContent = 'Failed to send email: ' + (data.error || 'Unknown error');
+                    }
+                })
+                .catch(() => {
+                    display.textContent = 'Error: Unable to reach the server.';
+                });
+
                 document.getElementById('messageInput').value = '';
             }
         }
