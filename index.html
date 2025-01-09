@@ -42,14 +42,17 @@
 </head>
 <body>
     <h1>До 14.02 сайт закрыт на технические работы. <3</h1>
-    <input type="text" id="messageInput" placeholder="Введите ваше сообщение здесь..." oninput="updateMessage()" />
+    <input type="text" id="messageInput" placeholder="Введите ваше сообщение здесь..." onkeydown="checkEnter(event)" />
     <div class="message" id="displayMessage"></div>
 
     <script>
-        function updateMessage() {
-            const input = document.getElementById('messageInput').value;
-            const display = document.getElementById('displayMessage');
-            display.textContent = input; // Update the display with the input value
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('messageInput').value;
+                const display = document.getElementById('displayMessage');
+                display.textContent = input; // Update the display with the input value
+                document.getElementById('messageInput').value = ''; // Clear the input field
+            }
         }
     </script>
 </body>
