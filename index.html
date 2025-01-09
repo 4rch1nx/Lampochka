@@ -28,14 +28,29 @@
             border: 2px solid #b22222;
             border-radius: 5px;
             outline: none;
+            margin-bottom: 20px; /* Space between input and message display */
         }
         input[type="text"]:focus {
             border-color: #ff6347; /* Change border color on focus */
+        }
+        .message {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <h1>До 14.02 сайт закрыт на технические работы. <3</h1>
-    <input type="text" placeholder="Введите ваше сообщение здесь..." />
+    <input type="text" id="messageInput" placeholder="Введите ваше сообщение здесь..." oninput="updateMessage()" />
+    <div class="message" id="displayMessage"></div>
+
+    <script>
+        function updateMessage() {
+            const input = document.getElementById('messageInput').value;
+            const display = document.getElementById('displayMessage');
+            display.textContent = input; // Update the display with the input value
+        }
+    </script>
 </body>
 </html>
