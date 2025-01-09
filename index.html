@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awaiting response!</title>
+    <title>Tweaking things</title>
     <style>
         body, html {
             margin: 0;
@@ -12,7 +12,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column; /* Allow stacking elements vertically */
+            flex-direction: column;
             background-color: #d4ebff;
             font-family: 'Arial', sans-serif;
             color: #b22222;
@@ -20,7 +20,7 @@
         h1 {
             font-size: 3em;
             text-shadow: 2px 2px 4px #fff;
-            margin-bottom: 20px; /* Space between heading and input */
+            margin-bottom: 20px;
         }
         input[type="text"] {
             padding: 10px;
@@ -28,10 +28,10 @@
             border: 2px solid #b22222;
             border-radius: 5px;
             outline: none;
-            margin-bottom: 20px; /* Space between input and message display */
+            margin-bottom: 20px;
         }
         input[type="text"]:focus {
-            border-color: #ff6347; /* Change border color on focus */
+            border-color: #ff6347;
         }
         .message {
             font-size: 1.5em;
@@ -50,8 +50,8 @@
             if (event.key === 'Enter') {
                 const input = document.getElementById('messageInput').value;
                 const display = document.getElementById('displayMessage');
-                display.textContent = input; // Update the display with the input value
-                document.getElementById('messageInput').value = ''; // Clear the input field
+                display.textContent = input;
+                document.getElementById('messageInput').value = '';
             }
         }
     </script>
