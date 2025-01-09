@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send an Email</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         body, html {
             margin: 0;
@@ -46,24 +47,43 @@
         button:hover {
             background-color: #555;
         }
+        .message {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <h1>Send an Email</h1>
     <input type="text" id="messageInput" placeholder="Type your message here..." />
     <button onclick="sendEmail()">Send</button>
+    <div class="message" id="statusMessage"></div>
 
     <script>
+        // Initialize EmailJS
+        emailjs.init("VfLLhoRP_Q5c4PYLS"); // Replace with your EmailJS user ID
+
         function sendEmail() {
             const input = document.getElementById('messageInput').value;
+            const statusMessage = document.getElementById('statusMessage');
+
             if (input.trim() === '') {
-                alert('Please enter a message before sending.');
+                statusMessage.textContent = 'Please enter a message before sending.';
                 return;
             }
-            const email = 'andyspacex10@gmail.com'; // Replace with your email
-            const subject = 'New Message from Website';
-            const body = encodeURIComponent(input);
-            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+            // Sending the email
+            emailjs.send("service_7fk6ubl", "template_kzdz3ua", {
+                message: input,
+            })
+            .then(() => {
+                statusMessage.textContent = 'Email sent successfully!';
+                document.getElementById('messageInput').value = '';
+            })
+            .catch((error) => {
+                statusMessage.textContent = `Failed to send email: ${error.text}`;
+            });
         }
     </script>
 </body>
