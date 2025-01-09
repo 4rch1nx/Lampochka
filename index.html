@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awaiting responce!</title>
+    <title>Awaiting response!</title>
     <style>
         body, html {
             margin: 0;
@@ -12,6 +12,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column; /* Allow stacking elements vertically */
             background-color: #d4ebff;
             font-family: 'Arial', sans-serif;
             color: #b22222;
@@ -19,10 +20,22 @@
         h1 {
             font-size: 3em;
             text-shadow: 2px 2px 4px #fff;
+            margin-bottom: 20px; /* Space between heading and input */
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1.2em;
+            border: 2px solid #b22222;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #ff6347; /* Change border color on focus */
         }
     </style>
 </head>
 <body>
     <h1>До 14.02 сайт закрыт на технические работы. <3</h1>
+    <input type="text" placeholder="Введите ваше сообщение здесь..." />
 </body>
 </html>
