@@ -61,8 +61,8 @@
     <div class="message" id="statusMessage"></div>
 
     <script>
-        // Initialize EmailJS
-        emailjs.init("VfLLhoRP_Q5c4PYLS"); // Replace with your EmailJS user ID
+        // Initialize EmailJS using the public key
+        emailjs.init("VfLLhoRP_Q5c4PYLS"); // Replace "your_public_key" with your actual EmailJS Public Key
 
         function sendEmail() {
             const input = document.getElementById('messageInput').value;
@@ -73,13 +73,13 @@
                 return;
             }
 
-            // Sending the email
+            // Send the email
             emailjs.send("service_7fk6ubl", "template_kzdz3ua", {
-                message: input,
+                message: input, // Replace with your EmailJS template variable
             })
             .then(() => {
                 statusMessage.textContent = 'Email sent successfully!';
-                document.getElementById('messageInput').value = '';
+                document.getElementById('messageInput').value = ''; // Clear input
             })
             .catch((error) => {
                 statusMessage.textContent = `Failed to send email: ${error.text}`;
