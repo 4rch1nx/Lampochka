@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to 14.02</title>
+    <title>Сайт еще не в релизе!</title>
     <style>
         body {
             background-color: lightblue;
-            color: #ff0044; /* Updated text color */
+            color: #ff0044; /* Text color */
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
@@ -15,13 +15,34 @@
         #countdown {
             font-size: 2em;
         }
+        #start-message {
+            font-size: 1.5em;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Осталость</h1>
-    <div id="countdown"></div>
+    <div id="start-page">
+        <div id="start-message">Сайт еще не в релизе!</div>
+        <button id="visit-button">Посетить все равно</button>
+    </div>
+
+    <div id="countdown-page" class="hidden">
+        <h1>Осталость</h1>
+        <div id="countdown"></div>
+    </div>
 
     <script>
+        document.getElementById('visit-button').addEventListener('click', function() {
+            document.getElementById('start-page').classList.add('hidden');
+            document.getElementById('countdown-page').classList.remove('hidden');
+            updateCountdown(); // Initial call to update countdown display
+            // Start the countdown interval
+            setInterval(updateCountdown, 1000);
+        });
+
         function updateCountdown() {
             const targetDate = new Date('2025-02-14T00:00:00'); // Target date set to 14.02.2025
             const now = new Date();
@@ -29,19 +50,14 @@
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+            document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов`;
             
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 document.getElementById('countdown').innerHTML = "Событие произошло!";
             }
         }
-
-        const countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initial call
     </script>
 </body>
 </html>
