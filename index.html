@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Техническая страница</title>
+    <title>Технические чоколадки!</title>
     <style>
         body {
-            background-color: #f0f0f0; /* Light gray background */
-            color: #555555; /* Dark gray text */
+            background-color: #f0f0f0;
+            color: #555555;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
         }
         #countdown {
             font-size: 2em;
-            color: #ff0044; /* Countdown text color */
+            color: #ff0044;
         }
         #start-message {
             font-size: 1.5em;
             margin-bottom: 20px;
         }
         #visit-button {
-            background-color: #666666; /* Medium gray button */
-            color: #ffffff; /* White text */
+            background-color: #666666;
+            color: #ffffff;
             font-size: 1.2em;
             padding: 10px 20px;
             border: none;
@@ -31,7 +31,7 @@
             transition: background-color 0.3s;
         }
         #visit-button:hover {
-            background-color: #444444; /* Darker gray on hover */
+            background-color: #444444;
         }
         .hidden {
             display: none;
@@ -40,7 +40,7 @@
 </head>
 <body>
     <div id="start-page">
-        <div id="start-message">Сайт еще не в релизе!</div>
+        <div id="start-message">Сайт находиться на техническом обслуживании</div>
         <button id="visit-button">Посетить все равно</button>
     </div>
 
@@ -53,8 +53,7 @@
         document.getElementById('visit-button').addEventListener('click', function() {
             document.getElementById('start-page').classList.add('hidden');
             document.getElementById('countdown-page').classList.remove('hidden');
-            updateCountdown(); // Initial call to update countdown display
-            // Start the countdown interval
+            updateCountdown();
             setInterval(updateCountdown, 1000);
         });
 
