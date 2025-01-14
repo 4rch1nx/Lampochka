@@ -1,90 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send an Email</title>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <title>Countdown to 14.02</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background-color: #f0f8ff;
+        body {
+            background-color: lightblue;
+            color: #FF007F; /* Red-magenta color */
             font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
         }
-        h1 {
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            padding: 10px;
-            font-size: 1.2em;
-            width: 80%;
-            max-width: 400px;
-            border: 2px solid #888;
-            border-radius: 5px;
-            outline: none;
-            margin-bottom: 20px;
-        }
-        input[type="text"]:focus {
-            border-color: #333;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            color: #fff;
-            background-color: #333;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #555;
-        }
-        .message {
-            font-size: 1.2em;
-            margin-top: 20px;
-            color: #555;
+        #countdown {
+            font-size: 2em;
         }
     </style>
 </head>
 <body>
-    <h1>Send an Email</h1>
-    <input type="text" id="messageInput" placeholder="Type your message here..." />
-    <button onclick="sendEmail()">Send</button>
-    <div class="message" id="statusMessage"></div>
+    <h1>Осталость</h1>
+    <div id="countdown"></div>
 
     <script>
-        // Initialize EmailJS using the public key
-        emailjs.init("VfLLhoRP_Q5c4PYLS"); // Replace "your_public_key" with your actual EmailJS Public Key
+        function updateCountdown() {
+            const targetDate = new Date('2024-02-13T21:00:00'); // Adjusted for UTC+3
+            const now = new Date();
+            const distance = targetDate - now;
 
-        function sendEmail() {
-            const input = document.getElementById('messageInput').value;
-            const statusMessage = document.getElementById('statusMessage');
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            if (input.trim() === '') {
-                statusMessage.textContent = 'Please enter a message before sending.';
-                return;
+            document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+            
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = "Событие произошло!";
             }
-
-            // Send the email
-            emailjs.send("service_7fk6ubl", "template_kzdz3ua", {
-                message: input, // Replace with your EmailJS template variable
-            })
-            .then(() => {
-                statusMessage.textContent = 'Email sent successfully!';
-                document.getElementById('messageInput').value = ''; // Clear input
-            })
-            .catch((error) => {
-                statusMessage.textContent = `Failed to send email: ${error.text}`;
-            });
         }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
     </script>
 </body>
 </html>
