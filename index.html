@@ -11,6 +11,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
+            transition: background-color 0.5s, color 0.5s;
         }
         #countdown {
             font-size: 2em;
@@ -20,28 +21,59 @@
             font-size: 1.5em;
             margin-bottom: 20px;
         }
-        #visit-button {
-            background-color: #666666;
-            color: #ffffff;
+        #visit-button, #test-button {
+            background-color: #d3d3d3; /* Light gray */
+            color: #555555; /* Dark gray text */
             font-size: 1.2em;
             padding: 10px 20px;
+            margin: 5px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
-        #visit-button:hover {
-            background-color: #444444;
+        #visit-button:hover, #test-button:hover {
+            background-color: #a9a9a9; /* Darker gray on hover */
+            color: #ffffff; /* White text on hover */
         }
         .hidden {
             display: none;
+        }
+        .valentine-theme {
+            background-color: #ffcccb;
+            color: #ff0044;
+            font-family: "Brush Script MT", cursive;
+            text-align: center;
+            padding: 50px;
+        }
+        .valentine-theme h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .valentine-theme p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .valentine-theme .heart {
+            font-size: 5em;
+            color: #ff0044;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
         }
     </style>
 </head>
 <body>
     <div id="start-page">
-        <div id="start-message">Сайт находиться на техническом обслуживании</div>
+        <div id="start-message">Сайт откроется в полный доступ 10.02</div>
         <button id="visit-button">Посетить все равно</button>
+        <button id="test-button">Тестировать 14 Февраля</button>
     </div>
 
     <div id="countdown-page" class="hidden">
@@ -57,6 +89,10 @@
             setInterval(updateCountdown, 1000);
         });
 
+        document.getElementById('test-button').addEventListener('click', function() {
+            applyValentineTheme();
+        });
+
         function updateCountdown() {
             const targetDate = new Date('2025-02-14T00:00:00'); // Target date set to 14.02.2025
             const now = new Date();
@@ -66,11 +102,21 @@
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
             document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов`;
-            
+
             if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('countdown').innerHTML = "Событие произошло!";
+                clearInterval(updateCountdown);
+                applyValentineTheme();
             }
+        }
+
+        function applyValentineTheme() {
+            // Change to Valentine's Day-themed site
+            document.body.className = 'valentine-theme';
+            document.body.innerHTML = `
+                <h1>С Днем Святого Валентина!</h1>
+                <p>Любовь витает в воздухе! 🌹💖</p>
+                <div class="heart">❤️</div>
+            `;
         }
     </script>
 </body>
