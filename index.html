@@ -13,6 +13,10 @@
             padding: 50px;
             transition: background-color 0.5s, color 0.5s;
         }
+        #countdown-page {
+            background-color: #ffcccb;
+            color: #ff0044;
+        }
         #countdown {
             font-size: 2em;
             color: #ff0044;
@@ -116,8 +120,7 @@
             if (now >= autoDestroyDate) {
                 startPage.classList.add('hidden');
                 countdownPage.classList.remove('hidden');
-                document.body.style.backgroundColor = '#ffcccb';
-                document.body.style.color = '#ff0044';
+                testButton.style.display = 'none';
             }
 
             if (distance < 0) {
@@ -134,14 +137,13 @@
                 <div class="heart">❤️</div>
             `;
         }
-        
+
         (function checkAutoDestroy() {
             const now = new Date();
             if (now >= autoDestroyDate) {
                 startPage.classList.add('hidden');
                 countdownPage.classList.remove('hidden');
-                document.body.style.backgroundColor = '#ffcccb';
-                document.body.style.color = '#ff0044';
+                testButton.style.display = 'none';
                 startCountdown();
             }
         })();
