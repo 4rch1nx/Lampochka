@@ -22,8 +22,8 @@
             margin-bottom: 20px;
         }
         #visit-button, #test-button {
-            background-color: #d3d3d3; /* Light gray */
-            color: #555555; /* Dark gray text */
+            background-color: #d3d3d3;
+            color: #555555;
             font-size: 1.2em;
             padding: 10px 20px;
             margin: 5px;
@@ -33,8 +33,8 @@
             transition: background-color 0.3s, color 0.3s;
         }
         #visit-button:hover, #test-button:hover {
-            background-color: #a9a9a9; /* Darker gray on hover */
-            color: #ffffff; /* White text on hover */
+            background-color: #a9a9a9;
+            color: #ffffff;
         }
         .hidden {
             display: none;
@@ -73,28 +73,38 @@
     <div id="start-page">
         <div id="start-message">Сайт откроется в полный доступ 10.02</div>
         <button id="visit-button">Посетить все равно</button>
-        <button id="test-button">Тестировать 14 Февраля</button>
     </div>
 
     <div id="countdown-page" class="hidden">
         <h1>Осталость</h1>
         <div id="countdown"></div>
+        <button id="test-button">Тестировать 14 Февраля</button>
     </div>
 
     <script>
-        document.getElementById('visit-button').addEventListener('click', function() {
-            document.getElementById('start-page').classList.add('hidden');
-            document.getElementById('countdown-page').classList.remove('hidden');
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
+        const visitButton = document.getElementById('visit-button');
+        const testButton = document.getElementById('test-button');
+        const startPage = document.getElementById('start-page');
+        const countdownPage = document.getElementById('countdown-page');
+        const targetDate = new Date('2025-02-14T00:00:00');
+        const autoDestroyDate = new Date('2025-02-10T00:00:00');
+
+        visitButton.addEventListener('click', function () {
+            startPage.classList.add('hidden');
+            countdownPage.classList.remove('hidden');
+            startCountdown();
         });
 
-        document.getElementById('test-button').addEventListener('click', function() {
+        testButton.addEventListener('click', function () {
             applyValentineTheme();
         });
 
+        function startCountdown() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
         function updateCountdown() {
-            const targetDate = new Date('2025-02-14T00:00:00'); // Target date set to 14.02.2025
             const now = new Date();
             const distance = targetDate - now;
 
@@ -103,6 +113,13 @@
 
             document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов`;
 
+            if (now >= autoDestroyDate) {
+                startPage.classList.add('hidden');
+                countdownPage.classList.remove('hidden');
+                document.body.style.backgroundColor = '#ffcccb';
+                document.body.style.color = '#ff0044';
+            }
+
             if (distance < 0) {
                 clearInterval(updateCountdown);
                 applyValentineTheme();
@@ -110,14 +127,24 @@
         }
 
         function applyValentineTheme() {
-            // Change to Valentine's Day-themed site
             document.body.className = 'valentine-theme';
             document.body.innerHTML = `
-                <h1>С Днем Святого Валентина!</h1>
-                <p>Любовь витает в воздухе! 🌹💖</p>
+                <h1>Ну привееет...</h1>
+                <p>Что не спим? 🌹</p>
                 <div class="heart">❤️</div>
             `;
         }
+        
+        (function checkAutoDestroy() {
+            const now = new Date();
+            if (now >= autoDestroyDate) {
+                startPage.classList.add('hidden');
+                countdownPage.classList.remove('hidden');
+                document.body.style.backgroundColor = '#ffcccb';
+                document.body.style.color = '#ff0044';
+                startCountdown();
+            }
+        })();
     </script>
 </body>
 </html>
