@@ -25,7 +25,7 @@
             font-size: 1.5em;
             margin-bottom: 20px;
         }
-        #visit-button, #test-button {
+        #visit-button {
             background-color: #d3d3d3;
             color: #555555;
             font-size: 1.2em;
@@ -36,7 +36,7 @@
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
-        #visit-button:hover, #test-button:hover {
+        #visit-button:hover {
             background-color: #a9a9a9;
             color: #ffffff;
         }
@@ -82,12 +82,10 @@
     <div id="countdown-page" class="hidden">
         <h1>Осталость</h1>
         <div id="countdown"></div>
-        <button id="test-button">Тестировать 14 Февраля</button>
     </div>
 
     <script>
         const visitButton = document.getElementById('visit-button');
-        const testButton = document.getElementById('test-button');
         const startPage = document.getElementById('start-page');
         const countdownPage = document.getElementById('countdown-page');
         const targetDate = new Date('2025-02-14T00:00:00');
@@ -97,10 +95,6 @@
             startPage.classList.add('hidden');
             countdownPage.classList.remove('hidden');
             startCountdown();
-        });
-
-        testButton.addEventListener('click', function () {
-            applyValentineTheme();
         });
 
         function startCountdown() {
@@ -120,7 +114,6 @@
             if (now >= autoDestroyDate) {
                 startPage.classList.add('hidden');
                 countdownPage.classList.remove('hidden');
-                testButton.style.display = 'none';
             }
 
             if (distance < 0) {
@@ -143,7 +136,6 @@
             if (now >= autoDestroyDate) {
                 startPage.classList.add('hidden');
                 countdownPage.classList.remove('hidden');
-                testButton.style.display = 'none';
                 startCountdown();
             }
         })();
