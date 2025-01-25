@@ -16,6 +16,9 @@
         #countdown-page {
             background-color: #ffcccb;
             color: #ff0044;
+            font-family: "Brush Script MT", cursive;
+            text-align: center;
+            padding: 50px;
         }
         #countdown {
             font-size: 2em;
@@ -75,7 +78,7 @@
 </head>
 <body>
     <div id="start-page">
-        <div id="start-message">Сайт откроется в полный доступ 10.02</div>
+        <div id="start-message">Сайт откроется в полный доступ 1.02</div>
         <button id="visit-button">Посетить все равно</button>
     </div>
 
@@ -89,7 +92,7 @@
         const startPage = document.getElementById('start-page');
         const countdownPage = document.getElementById('countdown-page');
         const targetDate = new Date('2025-02-14T00:00:00');
-        const autoDestroyDate = new Date('2025-02-10T00:00:00');
+        const autoDestroyDate = new Date('2025-02-1T00:00:00');
 
         visitButton.addEventListener('click', function () {
             startPage.classList.add('hidden');
