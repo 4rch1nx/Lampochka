@@ -3,17 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Технические чоколадки!</title>
+    <title>Что же это?</title>
     <style>
         body {
-            background-color: #f0f0f0;
-            color: #555555;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            transition: background-color 0.5s, color 0.5s;
-        }
-        #countdown-page {
             background-color: #ffcccb;
             color: #ff0044;
             font-family: "Brush Script MT", cursive;
@@ -23,28 +15,6 @@
         #countdown {
             font-size: 2em;
             color: #ff0044;
-        }
-        #start-message {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        #visit-button {
-            background-color: #d3d3d3;
-            color: #555555;
-            font-size: 1.2em;
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        #visit-button:hover {
-            background-color: #a9a9a9;
-            color: #ffffff;
-        }
-        .hidden {
-            display: none;
         }
         .valentine-theme {
             background-color: #ffcccb;
@@ -77,52 +47,28 @@
     </style>
 </head>
 <body>
-    <div id="start-page">
-        <div id="start-message">Сайт откроется в полный доступ 1.02</div>
-        <button id="visit-button">Посетить все равно</button>
-    </div>
-
-    <div id="countdown-page" class="hidden">
-        <h1>Осталость</h1>
-        <div id="countdown"></div>
-    </div>
+    <h1>Осталось</h1>
+    <div id="countdown"></div>
 
     <script>
-        const visitButton = document.getElementById('visit-button');
-        const startPage = document.getElementById('start-page');
-        const countdownPage = document.getElementById('countdown-page');
         const targetDate = new Date('2025-02-14T00:00:00');
-        const autoDestroyDate = new Date('2025-02-1T00:00:00');
-
-        visitButton.addEventListener('click', function () {
-            startPage.classList.add('hidden');
-            countdownPage.classList.remove('hidden');
-            startCountdown();
-        });
-
-        function startCountdown() {
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
 
         function updateCountdown() {
             const now = new Date();
             const distance = targetDate - now;
 
+            if (distance <= 0) {
+                applyValentineTheme();
+                return;
+            }
+
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-            document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов`;
+            document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов ${minutes} минут`;
 
-            if (now >= autoDestroyDate) {
-                startPage.classList.add('hidden');
-                countdownPage.classList.remove('hidden');
-            }
-
-            if (distance < 0) {
-                clearInterval(updateCountdown);
-                applyValentineTheme();
-            }
+            setTimeout(updateCountdown, 1000);
         }
 
         function applyValentineTheme() {
@@ -134,14 +80,7 @@
             `;
         }
 
-        (function checkAutoDestroy() {
-            const now = new Date();
-            if (now >= autoDestroyDate) {
-                startPage.classList.add('hidden');
-                countdownPage.classList.remove('hidden');
-                startCountdown();
-            }
-        })();
+        updateCountdown();
     </script>
 </body>
 </html>
