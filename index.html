@@ -1,86 +1,50 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Что же это?</title>
+    <title>Countdown</title>
     <style>
         body {
-            background-color: #ffcccb;
-            color: #ff0044;
-            font-family: "Brush Script MT", cursive;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #4a2f43;
+            color: white;
             text-align: center;
-            padding: 50px;
+            flex-direction: column;
         }
         #countdown {
             font-size: 2em;
-            color: #ff0044;
-        }
-        .valentine-theme {
-            background-color: #ffcccb;
-            color: #ff0044;
-            font-family: "Brush Script MT", cursive;
-            text-align: center;
-            padding: 50px;
-        }
-        .valentine-theme h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        .valentine-theme p {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .valentine-theme .heart {
-            font-size: 5em;
-            color: #ff0044;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
         }
     </style>
 </head>
 <body>
-    <h1>Осталось</h1>
+    <h1>Countdown</h1>
     <div id="countdown"></div>
-
+    
     <script>
-        const targetDate = new Date('2025-02-14T00:00:00');
-
         function updateCountdown() {
+            const targetDate = new Date(new Date().getFullYear(), 2, 8); // March 8
             const now = new Date();
-            const distance = targetDate - now;
-
-            if (distance <= 0) {
-                applyValentineTheme();
-                return;
+            
+            if (now > targetDate) {
+                targetDate.setFullYear(targetDate.getFullYear() + 1);
             }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-            document.getElementById('countdown').innerHTML = `${days} дней ${hours} часов ${minutes} минут`;
-
-            setTimeout(updateCountdown, 1000);
+            
+            const diff = targetDate - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
-
-        function applyValentineTheme() {
-            document.body.className = 'valentine-theme';
-            document.body.innerHTML = `
-                <h1>Ну привееет...</h1>
-                <p>Что не спим? 🌹</p>
-                <div class="heart">❤️</div>
-            `;
-        }
-
+        
         updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
