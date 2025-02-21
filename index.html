@@ -22,12 +22,12 @@
     </style>
 </head>
 <body>
-    <h1>Countdown</h1>
+    <h1>Завершение сезона через:</h1>
     <div id="countdown"></div>
     
     <script>
         function updateCountdown() {
-            const targetDate = new Date(new Date().getFullYear(), 2, 8); // March 8
+            const targetDate = new Date(new Date().getFullYear(), 1, 22, 9, 59, 3);
             const now = new Date();
             
             if (now > targetDate) {
