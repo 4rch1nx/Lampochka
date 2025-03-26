@@ -1,93 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tapper Game with Light Bulb</title>
+    <title>Миша Лох</title>
     <style>
         body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
-            text-align: center;
         }
-        #lightbulb {
-            width: 100px;
-            height: 150px;
-            background-color: #ffe700; /* yellow color for "on" state */
-            border-radius: 50px 50px 10px 10px; /* top rounded */
-            position: relative;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 20px;
-        }
-        #lightbulb.off {
-            background-color: #ccc; /* gray color for "off" state */
-        }
-        .bulb-base {
-            width: 40px;
-            height: 20px;
-            background-color: #888; /* gray base */
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-        }
-        #coinCount {
-            font-size: 24px;
-            margin-top: 20px;
-        }
-        #startButton {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+        h1 {
+            color: #333;
+            font-size: 48px;
         }
     </style>
 </head>
 <body>
-    <h1>Tap the Light Bulb!</h1>
-    <div id="lightbulb" class="off">
-        <div class="bulb-base"></div>
-    </div>
-    <div id="coinCount">Coins: 0</div>
-    <button id="startButton">Start</button>
-
-    <script>
-        const lightbulb = document.getElementById('lightbulb');
-        const coinCountDiv = document.getElementById('coinCount');
-        const startButton = document.getElementById('startButton');
-
-        let coins = 0;
-        let gameActive = false;
-
-        function updateCoinCount() {
-            coinCountDiv.textContent = `Coins: ${coins}`;
-        }
-
-        function toggleLightBulb() {
-            lightbulb.classList.toggle('off');
-        }
-        
-        lightbulb.addEventListener('click', function() {
-            if (gameActive) {
-                coins++;
-                updateCoinCount();
-                toggleLightBulb();
-            }
-        });
-
-        startButton.addEventListener('click', function() {
-            gameActive = true;
-            coins = 0; // reset coins
-            updateCoinCount();
-            lightbulb.classList.remove('off');
-        });
-    </script>
+    <h1>миша лох</h1>
 </body>
 </html>
