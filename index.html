@@ -55,36 +55,134 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        #loginForm {
+            display: none;
+            text-align: center;
+        }
+
+        #scoreboard {
+            display: none;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
     <h1>Lightbulb Clicker Game</h1>
-    <div id="lightbulb" onclick="clickLightbulb()">
-        <span>💡</span>
+    <div id="loginForm">
+        <h2>Please Log In</h2>
+        <input type="text" id="usernameInput" placeholder="Username">
+        <button onclick="login()">Login</button>
     </div>
-    <div id="coin">BulbCoins: <span id="bulbCoinCount">0</span></div>
-    <button onclick="buyClickUpgrade()">Buy Click Upgrade (Cost: 10 BulbCoins)</button>
+
+    
+    <div id="gameArea" style="display:none;">
+        <div id="lightbulb" onclick="clickLightbulb()">
+            <span>💡</span>
+        </div>
+        <div id="coin">BulbCoins: <span id="bulbCoinCount">0</span></div>
+        <div id="username"></div>
+        <button onclick="buyClickUpgrade()">Buy Click Upgrade (Cost: 10 BulbCoins)</button>
+        <button onclick="saveScore()">Save Score to GitHub</button>
+    </div>
+
+    <div id="scoreboard">
+        <h2>Scoreboard</h2>
+        <div id="score"></div>
+    </div>
 
     <script>
         let bulbCoinCount = 0;
         let clickValue = 1;
+        let username = '';
+        const GITHUB_TOKEN = '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'; // Replace this with your GitHub token
+
+        function login() {
+            username = document.getElementById('usernameInput').value;
+            if (username) {
+                localStorage.setItem('username', username);
+                localStorage.setItem('bulbCoinCount', bulbCoinCount);
+                document.getElementById('username').innerText = 'Welcome, ' + username;
+                document.getElementById('loginForm').style.display = 'none';
+                loadGame();
+            } else {
+                alert('Please enter a username.');
+            }
+        }
+
+        function loadGame() {
+            bulbCoinCount = parseInt(localStorage.getItem('bulbCoinCount')) || 0;
+            clickValue = 1; // Reset click value if you want a base value for each login
+            document.getElementById('bulbCoinCount').innerText = bulbCoinCount;
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('scoreboard').style.display = 'block';
+            document.getElementById('score').innerText = "Score: " + bulbCoinCount * clickValue;
+        }
 
         function clickLightbulb() {
             bulbCoinCount += clickValue;
+            localStorage.setItem('bulbCoinCount', bulbCoinCount);
             document.getElementById('bulbCoinCount').innerText = bulbCoinCount;
+            document.getElementById('score').innerText = "Score: " + bulbCoinCount * clickValue;
         }
 
         function buyClickUpgrade() {
             if (bulbCoinCount >= 10) {
                 bulbCoinCount -= 10;
                 clickValue++;
+                localStorage.setItem('bulbCoinCount', bulbCoinCount);
                 document.getElementById('bulbCoinCount').innerText = bulbCoinCount;
+                document.getElementById('score').innerText = "Score: " + bulbCoinCount * clickValue;
                 alert('Upgrade successful! Click value is now ' + clickValue);
             } else {
                 alert('Not enough BulbCoins!');
             }
         }
+
+        function saveScore() {
+            const scoreData = {
+                username: username,
+                bulbCoinCount: bulbCoinCount
+            };
+
+            fetch('https://api.github.com/gists', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    description: `Score of ${username}`,
+                    public: true,
+                    files: {
+                        [username + '-score.json']: {
+                            content: JSON.stringify(scoreData)
+                        }
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Score saved! Gist URL: ' + data.html_url);
+            })
+            .catch(error => {
+
+                console.error('Error:', error);
+                alert('Failed to save score.');
+            });
+        }
+
+        // On page load, check if the user is logged in
+        window.onload = function() {
+            username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('username').innerText = 'Welcome, ' + username;
+                loadGame();
+            } else {
+                document.getElementById('loginForm').style.display = 'block';
+            }
+        };
     </script>
 
 </body>
