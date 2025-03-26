@@ -1,25 +1,91 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Миша Лох</title>
+    <title>Lightbulb Clicker Game</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
+
         h1 {
-            color: #333;
-            font-size: 48px;
+            color: #ffcc00;
+        }
+
+        #lightbulb {
+            width: 150px;
+            height: 150px;
+            background-color: #ffcc00;
+            border-radius: 75px;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        #lightbulb:hover {
+            transform: scale(1.05);
+        }
+
+        #coin {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>миша лох</h1>
+
+    <h1>Lightbulb Clicker Game</h1>
+    <div id="lightbulb" onclick="clickLightbulb()">
+        <span>💡</span>
+    </div>
+    <div id="coin">BulbCoins: <span id="bulbCoinCount">0</span></div>
+    <button onclick="buyClickUpgrade()">Buy Click Upgrade (Cost: 10 BulbCoins)</button>
+
+    <script>
+        let bulbCoinCount = 0;
+        let clickValue = 1;
+
+        function clickLightbulb() {
+            bulbCoinCount += clickValue;
+            document.getElementById('bulbCoinCount').innerText = bulbCoinCount;
+        }
+
+        function buyClickUpgrade() {
+            if (bulbCoinCount >= 10) {
+                bulbCoinCount -= 10;
+                clickValue++;
+                document.getElementById('bulbCoinCount').innerText = bulbCoinCount;
+                alert('Upgrade successful! Click value is now ' + clickValue);
+            } else {
+                alert('Not enough BulbCoins!');
+            }
+        }
+    </script>
+
 </body>
 </html>
