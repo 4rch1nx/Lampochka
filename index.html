@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Light Bulb Toggle</title>
+    <title>Tapper Game with Light Bulb</title>
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            text-align: center;
         }
         #lightbulb {
             width: 100px;
@@ -21,6 +23,7 @@
             position: relative;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-bottom: 20px;
         }
         #lightbulb.off {
             background-color: #ccc; /* gray color for "off" state */
@@ -35,18 +38,55 @@
             transform: translateX(-50%);
             border-radius: 5px;
         }
+        #coinCount {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        #startButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <h1>Tap the Light Bulb!</h1>
     <div id="lightbulb" class="off">
         <div class="bulb-base"></div>
     </div>
+    <div id="coinCount">Coins: 0</div>
+    <button id="startButton">Start</button>
 
     <script>
         const lightbulb = document.getElementById('lightbulb');
+        const coinCountDiv = document.getElementById('coinCount');
+        const startButton = document.getElementById('startButton');
+
+        let coins = 0;
+        let gameActive = false;
+
+        function updateCoinCount() {
+            coinCountDiv.textContent = `Coins: ${coins}`;
+        }
+
+        function toggleLightBulb() {
+            lightbulb.classList.toggle('off');
+        }
         
         lightbulb.addEventListener('click', function() {
-            lightbulb.classList.toggle('off');
+            if (gameActive) {
+                coins++;
+                updateCoinCount();
+                toggleLightBulb();
+            }
+        });
+
+        startButton.addEventListener('click', function() {
+            gameActive = true;
+            coins = 0; // reset coins
+            updateCoinCount();
+            lightbulb.classList.remove('off');
         });
     </script>
 </body>
