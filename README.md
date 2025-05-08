@@ -1,2 +1,1 @@
-# Самая частая ошибка
-**503 - Service Unavailable**
+# **503 - Service Unavailable**
