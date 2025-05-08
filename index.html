@@ -5,10 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Two Tabs Site</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* Reset some default styles */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
     }
 
     .tabs {
@@ -32,6 +40,7 @@
     .tab-content {
       display: none;
       padding: 20px;
+      flex: 1;
     }
 
     .tab-content.active {
@@ -66,6 +75,17 @@
       50% { width: 100%; }
       100% { width: 0%; }
     }
+
+    /* Sticky footer styles */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f1f1f1;
+      color: #333;
+      font-size: 16px;
+      border-top: 1px solid #ccc;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -77,23 +97,22 @@
   </div>
 
   <!-- Tab Contents -->
-  <div id="Countdown" class="tab-content active">
+  <main class="tab-content active" id="Countdown">
     <h1>Countdown to 22:22:22</h1>
-    <h2>Upload fanfic in:</h2>
     <div id="countdown">Loading...</div>
-  </div>
+  </main>
 
-  <div id="Progress" class="tab-content">
-    <h1>me when: decisiding when to sleep</h1>
+  <main class="tab-content" id="Progress">
+    <h1>Infinite Progress Bar</h1>
     <div class="progress-container">
       <div class="progress-bar"></div>
     </div>
+  </main>
 
-    <!-- Footer -->
-  <footer style="text-align: center; padding: 20px; background-color: #f1f1f1; color: #333; font-size: 16px; border-top: 1px solid #ccc;">
+  <!-- Footer -->
+  <footer>
     Made with ❤️ by <strong>Andrew-24coop</strong>
   </footer>
-  </div>
 
   <script>
     // Tab switcher function
