@@ -3,162 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Two Tabs Site</title>
+  <title>Infinite Curiosity</title>
   <style>
-    /* Reset some default styles */
+    /* Reset some defaults */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #121221);
+      color: #f0f0f0;
+      line-height: 1.6;
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
     }
 
-    .tabs {
-      display: flex;
-      background-color: #333;
-    }
-
-    .tab {
-      flex: 1;
+    header {
       text-align: center;
-      padding: 14px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
+      padding: 4rem 1rem 2rem;
     }
 
-    .tab.active {
-      background-color: #555;
+    h1 {
+      font-size: 3rem;
+      color: #00ffe7;
+      animation: pulse 3s infinite;
     }
 
-    .tab-content {
-      display: none;
-      padding: 20px;
-      flex: 1;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
-    .tab-content.active {
-      display: block;
+    section {
+      max-width: 800px;
+      margin: auto;
+      padding: 1rem;
+      text-align: center;
     }
 
-    /* Countdown styling */
-    #countdown {
-      font-size: 2em;
-      margin-top: 20px;
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Progress bar styling */
-    .progress-container {
-      width: 100%;
-      height: 30px;
-      background-color: #f3f3f3;
-      border: 1px solid #ccc;
-      margin-top: 20px;
-      overflow: hidden;
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #00ffe7aa;
     }
 
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background-color: #4caf50;
-      animation: load 2s linear infinite;
+    h2 {
+      color: #ff66cc;
+      margin-bottom: 1rem;
     }
 
-    @keyframes load {
-      0% { width: 0%; }
-      50% { width: 100%; }
-      100% { width: 0%; }
+    p {
+      max-width: 700px;
+      margin: auto;
     }
 
-    /* Sticky footer styles */
     footer {
+      margin-top: auto;
       text-align: center;
-      padding: 20px;
-      background-color: #f1f1f1;
-      color: #333;
-      font-size: 16px;
-      border-top: 1px solid #ccc;
-      flex-shrink: 0;
+      padding: 2rem 1rem;
+      background: #111;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    footer heart {
+      color: red;
+      font-size: 1rem;
+      vertical-align: middle;
     }
   </style>
 </head>
 <body>
 
-  <!-- Tab Navigation -->
-  <div class="tabs">
-    <div class="tab active" onclick="openTab(event, 'Countdown')">Countdown</div>
-    <div class="tab" onclick="openTab(event, 'Progress')">Progress Bar</div>
-  </div>
+  <header>
+    <h1>Welcome to the Infinite Loop</h1>
+  </header>
 
-  <!-- Tab Contents -->
-  <main class="tab-content active" id="Countdown">
-    <h1>Countdown to 22:22:22</h1>
-    <h2>Upload fanfic in:</h2>
-    <div id="countdown">Loading...</div>
-  </main>
-
-  <main class="tab-content" id="Progress">
-    <h1>Infinite Progress Bar</h1>
-    <div class="progress-container">
-      <div class="progress-bar"></div>
+  <section>
+    <div class="card">
+      <h2>What is Reality?</h2>
+      <p>
+        Reality might just be a simulation running on a computer built from stardust.
+        Every click you make, every thought you have — could be lines of code executed in a universe far beyond our comprehension.
+      </p>
     </div>
-  </main>
 
-  <!-- Footer -->
+    <div class="card">
+      <h2>The Power of Questions</h2>
+      <p>
+        The most powerful tool humans possess isn't fire or the wheel — it's curiosity.
+        Asking "why?" has launched rockets, cured diseases, and cracked the code of life itself.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Time Travel is Real</h2>
+      <p>
+        We're all time travelers. Every second we move forward in time.
+        The real question is: can we go backward before we reach the end?
+      </p>
+    </div>
+  </section>
+
   <footer>
-    Made with ❤️ by <strong>Andrew-24coop</strong>
+    Made with <heart>❤️</heart> by xmr-rx0
   </footer>
-
-  <script>
-    // Tab switcher function
-    function openTab(evt, tabName) {
-      const tabs = document.getElementsByClassName("tab-content");
-      const navs = document.getElementsByClassName("tab");
-
-      for (let i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove("active");
-      }
-
-      for (let i = 0; i < navs.length; i++) {
-        navs[i].classList.remove("active");
-      }
-
-      document.getElementById(tabName).classList.add("active");
-      evt.currentTarget.classList.add("active");
-    }
-
-    // Countdown logic
-    function updateCountdown() {
-      const now = new Date();
-      let targetTime = new Date();
-
-      // Set target time to today at 22:22:22
-      targetTime.setHours(22, 22, 22, 0);
-
-      // If already passed today, set it to tomorrow
-      if (now > targetTime) {
-        targetTime.setDate(targetTime.getDate() + 1);
-      }
-
-      const diff = targetTime - now;
-
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").textContent =
-        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown(); // Initial call
-  </script>
 
 </body>
 </html>
