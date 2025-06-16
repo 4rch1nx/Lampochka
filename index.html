@@ -3,123 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Infinite Curiosity</title>
+  <title>Countdown to September 1st</title>
   <style>
-    /* Reset some defaults */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1e1e2f, #121221);
-      color: #f0f0f0;
-      line-height: 1.6;
+      background: #f0f4f8;
+      color: #333;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      text-align: center;
-      padding: 4rem 1rem 2rem;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
     h1 {
-      font-size: 3rem;
-      color: #00ffe7;
-      animation: pulse 3s infinite;
+      font-size: 2.5em;
+      margin-bottom: 20px;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    section {
-      max-width: 800px;
-      margin: auto;
-      padding: 1rem;
+    #countdown {
+      font-size: 2em;
       text-align: center;
+      margin-bottom: 30px;
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px #00ffe7aa;
-    }
-
-    h2 {
-      color: #ff66cc;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      max-width: 700px;
-      margin: auto;
-    }
-
-    footer {
-      margin-top: auto;
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
       text-align: center;
-      padding: 2rem 1rem;
-      background: #111;
-      color: #aaa;
-      font-size: 0.9rem;
+      font-size: 0.9em;
+      color: #666;
     }
 
-    footer heart {
+    .heart {
       color: red;
-      font-size: 1rem;
-      vertical-align: middle;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Welcome to the Infinite Loop</h1>
-  </header>
+  <h1>Countdown to September 1st</h1>
+  <div id="countdown">Loading...</div>
 
-  <section>
-    <div class="card">
-      <h2>What is Reality?</h2>
-      <p>
-        Reality might just be a simulation running on a computer built from stardust.
-        Every click you make, every thought you have — could be lines of code executed in a universe far beyond our comprehension.
-      </p>
-    </div>
+  <div class="footer">
+    Made with <span class="heart">❤️</span> by xmr-rx0
+  </div>
 
-    <div class="card">
-      <h2>The Power of Questions</h2>
-      <p>
-        The most powerful tool humans possess isn't fire or the wheel — it's curiosity.
-        Asking "why?" has launched rockets, cured diseases, and cracked the code of life itself.
-      </p>
-    </div>
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      let targetYear = now.getFullYear();
 
-    <div class="card">
-      <h2>Time Travel is Real</h2>
-      <p>
-        We're all time travelers. Every second we move forward in time.
-        The real question is: can we go backward before we reach the end?
-      </p>
-    </div>
-  </section>
+      // Set the target date to September 1st
+      let targetDate = new Date(targetYear, 8, 1); // Months are 0-indexed (August = 8)
 
-  <footer>
-    Made with <heart>❤️</heart> by xmr-rx0
-  </footer>
+      // If September 1st has already passed this year, use next year
+      if (now > targetDate) {
+        targetYear++;
+        targetDate = new Date(targetYear, 8, 1);
+      }
+
+      const timeDifference = targetDate - now;
+
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+      const seconds = Math.floor((timeDifference / 1000) % 60);
+
+      document.getElementById('countdown').innerHTML = 
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      // Update every second
+      setTimeout(updateCountdown, 1000);
+    }
+
+    updateCountdown(); // Start the countdown
+  </script>
 
 </body>
 </html>
